@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI SEO Meta & Keywords Generator | By Eng. Hanadi Abusabelah</title>
+    <style>
+        .seotool-wrapper {
+            all: initial;
+            font-family: 'Inter', sans-serif, Arial, sans-serif;
+            display: block;
+            width: 100%;
+            box-sizing: border-box;
+            direction: ltr;
+            text-align: left;
+            background: #f8fafc;
+            padding: 20px 10px;
+        }
+        .seotool-wrapper * {
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif, Arial, sans-serif;
+            letter-spacing: normal;
+        }
+        .seotool-container {
+            max-width: 800px;
+            width: 100%;
+            margin: 0 auto;
+            background: #ffffff;
+            padding: 35px;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+            border: 1px solid #e2e8f0;
+            text-align: left;
+            direction: ltr;
+        }
+        .seotool-header {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+        .seotool-badge {
+            background: #ede9fe;
+            color: #7c3aed;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 700;
+            display: inline-block;
+            margin-bottom: 8px;
+        }
+        .seotool-container h1 {
+            color: #1e293b;
+            margin: 0 0 8px 0;
+            font-size: 26px;
+            text-align: center;
+        }
+        .seotool-container p.subtitle {
+            color: #64748b;
+            margin: 0;
+            font-size: 15px;
+            text-align: center;
+        }
+        .seotool-api-box {
+            background: #f1f5f9;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            border: 1px dashed #cbd5e1;
+        }
+        .seotool-api-box label {
+            font-size: 13px;
+            color: #475569;
+            font-weight: 600;
+            display: block;
+            margin-bottom: 6px;
+        }
+        .seotool-api-box small {
+            display: block;
+            color: #64748b;
+            margin-top: 5px;
+            font-size: 12px;
+        }
+        .seotool-form-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 15px;
+            margin-bottom: 18px;
+        }
+        @media (max-width: 600px) {
+            .seotool-form-grid { grid-template-columns: 1fr; }
+        }
+        .seotool-container label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 8px;
+            font-size: 14px;
+            color: #1e293b;
+        }
+        .seotool-container input[type="text"], 
+        .seotool-container input[type="password"], 
+        .seotool-container select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #e2e8f0;
+            border-radius: 10px;
+            font-size: 15px;
+            outline: none;
+            background: #fff;
+            color: #1e293b;
+        }
+        .seotool-container input:focus, .seotool-container select:focus {
+            border-color: #2563eb;
+        }
+        button.seotool-generate-btn {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #2563eb, #7c3aed);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        button.seotool-generate-btn:disabled {
+            background: #94a3b8;
+            cursor: not-allowed;
+        }
+        .seotool-loader {
+            display: none;
+            text-align: center;
+            margin: 25px 0;
+            color: #2563eb;
+            font-weight: 600;
+        }
+        .seotool-results {
+            margin-top: 30px;
+            display: none;
+        }
+        .seotool-results-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        .seotool-export-btn {
+            background: #10b981;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 13px;
+            cursor: pointer;
+        }
+        .seotool-section-title {
+            font-size: 16px;
+            font-weight: bold;
+            margin: 20px 0 12px 0;
+            color: #1e293b;
+            border-bottom: 2px solid #e2e8f0;
+            padding-bottom: 6px;
+        }
+        .seotool-result-card {
+            background: #f8fafc;
+            padding: 14px;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            border: 1px solid #e2e8f0;
+        }
+        .seotool-result-content { flex: 1; }
+        .seotool-result-text {
+            font-size: 15px;
+            font-weight: 500;
+            margin-bottom: 5px;
+            line-height: 1.4;
+            color: #1e293b;
+        }
+        .seotool-char-count { font-size: 12px; color: #64748b; }
+        .seotool-char-good { color: #10b981; font-weight: bold; }
+        .seotool-char-warn { color: #f59e0b; font-weight: bold; }
+        .seotool-copy-btn {
+            background: white;
+            border: 1px solid #e2e8f0;
+            padding: 7px 14px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 600;
+            color: #2563eb;
+        }
+        .seotool-copy-btn:hover {
+            background: #2563eb;
+            color: white;
+        }
+        .seotool-tags-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 10px;
+        }
+        .seotool-tag-pill {
+            background: #e0e7ff;
+            color: #3730a3;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+        }
+        .seotool-footer {
+            margin-top: 35px;
+            padding-top: 18px;
+            border-top: 1px solid #e2e8f0;
+            text-align: center;
+            font-size: 13px;
+            color: #64748b;
+        }
+        .seotool-footer strong {
+            color: #2563eb;
+            font-weight: 700;
+        }
+    </style>
+</head>
+<body>
+
+<div class="seotool-wrapper">
+<div class="seotool-container">
+    <div class="seotool-header">
+        <span class="seotool-badge">✨ AI-POWERED SEO ENGINE</span>
+        <h1>AI SEO Meta & Keywords Generator</h1>
+        <p class="subtitle">Generate high-converting SEO titles, meta descriptions, and LSI keywords in seconds.</p>
+    </div>
+
+    <div class="seotool-api-box">
+        <label for="seotoolApiKey">🔑 Enter Your Free Google Gemini API Key:</label>
+        <input type="password" id="seotoolApiKey" placeholder="AIzaSy...">
+        <small>Get a free API key from <b>Google AI Studio</b>. Your key stays strictly in your browser.</small>
+    </div>
+
+    <div class="seotool-form-grid">
+        <div>
+            <label for="seotoolKeyword">Target Keyword or Topic:</label>
+            <input type="text" id="seotoolKeyword" placeholder="e.g., Micro-SaaS Ideas, AI Tools...">
+        </div>
+        <div>
+            <label for="seotoolTone">Content Tone:</label>
+            <select id="seotoolTone">
+                <option value="Professional & Informative">Professional</option>
+                <option value="Catchy & High-CTR">Catchy / Viral</option>
+                <option value="Educational & Step-by-Step">Educational</option>
+                <option value="Action-Oriented & Persuasive">Persuasive</option>
+            </select>
+        </div>
+    </div>
+
+    <button class="seotool-generate-btn" id="seotoolGenBtn" onclick="generateAISEO()">Generate AI SEO Package 🚀</button>
+
+    <div class="seotool-loader" id="seotoolLoader">⏳ AI is analyzing search intent and crafting your SEO tags...</div>
+
+    <div class="seotool-results" id="seotoolResultsArea">
+        <div class="seotool-results-header">
+            <h3 style="margin:0; font-size:18px;">📊 Generated SEO Assets</h3>
+            <button class="seotool-export-btn" onclick="exportToTXT()">📥 Export as .TXT</button>
+        </div>
+
+        <div class="seotool-section-title">📌 SEO Titles (Target: &lt; 60 chars)</div>
+        <div id="seotoolTitlesList"></div>
+
+        <div class="seotool-section-title">📝 Meta Descriptions (Target: &lt; 160 chars)</div>
+        <div id="seotoolDescriptionsList"></div>
+
+        <div class="seotool-section-title">🏷️ Suggested LSI Keywords & Hashtags (Click to copy)</div>
+        <div class="seotool-tags-container" id="seotoolTagsList"></div>
+    </div>
+
+    <footer class="seotool-footer">
+        Developed with ❤️ by <strong>Eng. Hanadi Abusabelah</strong>
+    </footer>
+</div>
+</div>
+
+<script>
+    let currentSEOData = null;
+
+    async function generateAISEO() {
+        const apiKey = document.getElementById('seotoolApiKey').value.trim();
+        const keyword = document.getElementById('seotoolKeyword').value.trim();
+        const tone = document.getElementById('seotoolTone').value;
+
+        if (!apiKey) {
+            alert("Please enter your free Gemini API Key first!");
+            return;
+        }
+        if (!keyword) {
+            alert("Please enter a target keyword or topic!");
+            return;
+        }
+
+        const btn = document.getElementById('seotoolGenBtn');
+        const loader = document.getElementById('seotoolLoader');
+        const resultsArea = document.getElementById('seotoolResultsArea');
+
+        btn.disabled = true;
+        loader.style.display = 'block';
+        resultsArea.style.display = 'none';
+
+        const prompt = `Act as a world-class SEO specialist. For the topic/keyword: "${keyword}" with a "${tone}" tone, generate:
+1. Exactly 5 high-CTR SEO titles (strictly under 60 characters each).
+2. Exactly 3 compelling meta descriptions (strictly under 155 characters each).
+3. Exactly 8 relevant LSI keywords/hashtags.
+
+Return ONLY a valid JSON object in this exact structure without markdown formatting or extra text:
+{
+  "titles": ["title 1", "title 2", "title 3", "title 4", "title 5"],
+  "descriptions": ["desc 1", "desc 2", "desc 3"],
+  "keywords": ["keyword1", "keyword2", "keyword3", "keyword4", "keyword5", "keyword6", "keyword7", "keyword8"]
+}`;
+
+        try {
+            const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    contents: [{ parts: [{ text: prompt }] }],
+                    generationConfig: { responseMimeType: "application/json" }
+                })
+            });
+
+            const data = await response.json();
+
+            if (!response.ok) {
+                const errMsg = data.error && data.error.message ? data.error.message : "Please check your API key.";
+                throw new Error(errMsg);
+            }
+
+            const rawText = data.candidates[0].content.parts[0].text;
+            currentSEOData = JSON.parse(rawText);
+
+            renderSEOcards(currentSEOData.titles, 'seotoolTitlesList', 60);
+            renderSEOcards(currentSEOData.descriptions, 'seotoolDescriptionsList', 160);
+            renderSEOTags(currentSEOData.keywords);
+
+            resultsArea.style.display = 'block';
+        } catch (error) {
+            alert("API Error: " + error.message);
+        } finally {
+            btn.disabled = false;
+            loader.style.display = 'none';
+        }
+    }
+
+    function renderSEOcards(items, containerId, maxLimit) {
+        const container = document.getElementById(containerId);
+        container.innerHTML = '';
+
+        items.forEach((text) => {
+            const len = text.length;
+            const statusClass = len <= maxLimit ? 'seotool-char-good' : 'seotool-char-warn';
+            const statusText = len <= maxLimit ? 'Optimal' : 'Over Limit';
+
+            const card = document.createElement('div');
+            card.className = 'seotool-result-card';
+            card.innerHTML = `
+                <div class="seotool-result-content">
+                    <div class="seotool-result-text">${text}</div>
+                    <div class="seotool-char-count">Length: <span class="${statusClass}">${len} / ${maxLimit} (${statusText})</span></div>
+                </div>
+                <button class="seotool-copy-btn" onclick="copySEOText(this, '${text.replace(/'/g, "\\'")}')">Copy</button>
+            `;
+            container.appendChild(card);
+        });
+    }
+
+    function renderSEOTags(tags) {
+        const container = document.getElementById('seotoolTagsList');
+        container.innerHTML = '';
+        tags.forEach(tag => {
+            const span = document.createElement('span');
+            span.className = 'seotool-tag-pill';
+            span.innerText = tag;
+            span.onclick = () => {
+                navigator.clipboard.writeText(tag);
+                span.innerText = 'Copied ✔';
+                setTimeout(() => span.innerText = tag, 1200);
+            };
+            container.appendChild(span);
+        });
+    }
+
+    function copySEOText(btn, text) {
+        navigator.clipboard.writeText(text).then(() => {
+            const orig = btn.innerText;
+            btn.innerText = 'Copied ✔';
+            setTimeout(() => { btn.innerText = orig; }, 1500);
+        });
+    }
+
+    function exportToTXT() {
+        if (!currentSEOData) return;
+        const kw = document.getElementById('seotoolKeyword').value;
+        let content = `SEO PACKAGE FOR: ${kw.toUpperCase()}\nDeveloped by Eng. Hanadi Abusabelah\n====================================\n\n`;
+        content += `--- SEO TITLES ---\n` + currentSEOData.titles.map((t, i) => `${i+1}. ${t}`).join('\n') + `\n\n`;
+        content += `--- META DESCRIPTIONS ---\n` + currentSEOData.descriptions.map((d, i) => `${i+1}. ${d}`).join('\n') + `\n\n`;
+        content += `--- LSI KEYWORDS ---\n` + currentSEOData.keywords.join(', ');
+
+        const blob = new Blob([content], { type: 'text/plain' });
+        const link = document.createElement('a');
+        link.href = URL.createObjectURL(blob);
+        link.download = `SEO-Package-${kw.replace(/\s+/g, '-')}.txt`;
+        link.click();
+    }
+</script>
