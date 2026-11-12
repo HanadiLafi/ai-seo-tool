@@ -243,9 +243,7 @@
         <div style="margin-top: 12px;">
             <label for="seotoolModel" style="font-size: 12px; margin-bottom: 4px;">Select Gemini Model:</label>
             <select id="seotoolModel" style="padding: 8px; font-size: 13px;">
-                <option value="gemini-3.8-flash">Gemini 3.8 Flash (Recommended)</option>
-                <option value="gemini-1.5-flash">Gemini 1.5 Flash</option>
-                <option value="gemini-2.5-flash">Gemini 2.5 Flash</option>
+                <option value="gemini-3.8-flash">Gemini 3.8 Flash (Active & Supported)</option>
             </select>
         </div>
     </div>
@@ -351,78 +349,4 @@ Return ONLY a valid JSON object in this exact structure without markdown formatt
             currentSEOData = JSON.parse(rawText);
 
             renderSEOcards(currentSEOData.titles, 'seotoolTitlesList', 60);
-            renderSEOcards(currentSEOData.descriptions, 'seotoolDescriptionsList', 160);
-            renderSEOTags(currentSEOData.keywords);
-
-            resultsArea.style.display = 'block';
-        } catch (error) {
-            alert("API Error: " + error.message);
-        } finally {
-            btn.disabled = false;
-            loader.style.display = 'none';
-        }
-    }
-
-    function renderSEOcards(items, containerId, maxLimit) {
-        const container = document.getElementById(containerId);
-        container.innerHTML = '';
-
-        items.forEach((text) => {
-            const len = text.length;
-            const statusClass = len <= maxLimit ? 'seotool-char-good' : 'seotool-char-warn';
-            const statusText = len <= maxLimit ? 'Optimal' : 'Over Limit';
-
-            const card = document.createElement('div');
-            card.className = 'seotool-result-card';
-            card.innerHTML = `
-                <div class="seotool-result-content">
-                    <div class="seotool-result-text">${text}</div>
-                    <div class="seotool-char-count">Length: <span class="${statusClass}">${len} / ${maxLimit} (${statusText})</span></div>
-                </div>
-                <button class="seotool-copy-btn" onclick="copySEOText(this, '${text.replace(/'/g, "\\'")}')">Copy</button>
-            `;
-            container.appendChild(card);
-        });
-    }
-
-    function renderSEOTags(tags) {
-        const container = document.getElementById('seotoolTagsList');
-        container.innerHTML = '';
-        tags.forEach(tag => {
-            const span = document.createElement('span');
-            span.className = 'seotool-tag-pill';
-            span.innerText = tag;
-            span.onclick = () => {
-                navigator.clipboard.writeText(tag);
-                span.innerText = 'Copied ✔';
-                setTimeout(() => span.innerText = tag, 1200);
-            };
-            container.appendChild(span);
-        });
-    }
-
-    function copySEOText(btn, text) {
-        navigator.clipboard.writeText(text).then(() => {
-            const orig = btn.innerText;
-            btn.innerText = 'Copied ✔';
-            setTimeout(() => { btn.innerText = orig; }, 1500);
-        });
-    }
-
-    function exportToTXT() {
-        if (!currentSEOData) return;
-        const kw = document.getElementById('seotoolKeyword').value;
-        let content = `SEO PACKAGE FOR: ${kw.toUpperCase()}\nDeveloped by Eng. Hanadi Abusabelah\n====================================\n\n`;
-        content += `--- SEO TITLES ---\n` + currentSEOData.titles.map((t, i) => `${i+1}. ${t}`).join('\n') + `\n\n`;
-        content += `--- META DESCRIPTIONS ---\n` + currentSEOData.descriptions.map((d, i) => `${i+1}. ${d}`).join('\n') + `\n\n`;
-        content += `--- LSI KEYWORDS ---\n` + currentSEOData.keywords.join(', ');
-
-        const blob = new Blob([content], { type: 'text/plain' });
-        const link = document.createElement('a');
-        link.href = URL.createObjectURL(blob);
-        link.download = `SEO-Package-${kw.replace(/\s+/g, '-')}.txt`;
-        link.click();
-    }
-</script>
-</body>
-</html>
+            
