@@ -1,7 +1,8 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" dir="ltr" class="notranslate">
 <head>
     <meta charset="UTF-8">
+    <meta name="google" content="notranslate">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AI SEO Meta & Keywords Generator | By Eng. Hanadi Abusabelah</title>
     <style>
@@ -16,7 +17,7 @@
         }
         * {
             box-sizing: border-box;
-            font-family: 'Inter', sans-serif;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
         }
         body {
             background-color: var(--bg);
@@ -42,27 +43,28 @@
         .badge {
             background: #ede9fe;
             color: var(--accent);
-            padding: 4px 12px;
+            padding: 5px 14px;
             border-radius: 20px;
             font-size: 12px;
             font-weight: 700;
             display: inline-block;
-            margin-bottom: 8px;
+            margin-bottom: 10px;
         }
         h1 {
             color: var(--text);
-            margin: 0 0 8px 0;
+            margin: 0 0 10px 0;
             font-size: 26px;
         }
         p.subtitle {
             color: #64748b;
             margin: 0;
             font-size: 15px;
+            line-height: 1.5;
         }
         .api-box {
             background: #f1f5f9;
-            padding: 15px;
-            border-radius: 10px;
+            padding: 16px;
+            border-radius: 12px;
             margin-bottom: 20px;
             border: 1px dashed #cbd5e1;
         }
@@ -74,7 +76,7 @@
         .api-box small {
             display: block;
             color: #64748b;
-            margin-top: 5px;
+            margin-top: 6px;
             font-size: 12px;
         }
         .form-grid {
@@ -85,6 +87,7 @@
         }
         @media (max-width: 600px) {
             .form-grid { grid-template-columns: 1fr; }
+            .container { padding: 20px; }
         }
         label {
             display: block;
@@ -97,8 +100,10 @@
             padding: 12px 15px;
             border: 1px solid var(--border);
             border-radius: 10px;
-            font-size: 15px;
+            font-size: 14px;
             outline: none;
+            background: #fff;
+            transition: border-color 0.2s;
         }
         input:focus, select:focus {
             border-color: var(--primary);
@@ -113,6 +118,10 @@
             font-size: 16px;
             font-weight: bold;
             cursor: pointer;
+            transition: opacity 0.2s;
+        }
+        button.generate-btn:hover {
+            opacity: 0.95;
         }
         button.generate-btn:disabled {
             background: #94a3b8;
@@ -124,6 +133,7 @@
             margin: 25px 0;
             color: var(--primary);
             font-weight: 600;
+            font-size: 15px;
         }
         .results {
             margin-top: 30px;
@@ -145,10 +155,13 @@
             font-size: 13px;
             cursor: pointer;
         }
+        .export-btn:hover {
+            opacity: 0.9;
+        }
         .section-title {
-            font-size: 16px;
+            font-size: 15px;
             font-weight: bold;
-            margin: 20px 0 12px 0;
+            margin: 22px 0 12px 0;
             color: var(--text);
             border-bottom: 2px solid var(--border);
             padding-bottom: 6px;
@@ -166,10 +179,11 @@
         }
         .result-content { flex: 1; }
         .result-text {
-            font-size: 15px;
+            font-size: 14px;
             font-weight: 500;
             margin-bottom: 5px;
-            line-height: 1.4;
+            line-height: 1.5;
+            color: var(--text);
         }
         .char-count { font-size: 12px; color: #64748b; }
         .char-good { color: var(--success); font-weight: bold; }
@@ -177,12 +191,13 @@
         .copy-btn {
             background: white;
             border: 1px solid var(--border);
-            padding: 7px 14px;
+            padding: 6px 12px;
             border-radius: 8px;
             cursor: pointer;
             font-size: 13px;
             font-weight: 600;
             color: var(--primary);
+            white-space: nowrap;
         }
         .copy-btn:hover {
             background: var(--primary);
@@ -197,11 +212,15 @@
         .tag-pill {
             background: #e0e7ff;
             color: #3730a3;
-            padding: 6px 12px;
+            padding: 6px 14px;
             border-radius: 20px;
             font-size: 13px;
             font-weight: 500;
             cursor: pointer;
+            user-select: none;
+        }
+        .tag-pill:hover {
+            background: #c7d2fe;
         }
         .footer {
             margin-top: 35px;
@@ -213,35 +232,34 @@
         }
         .footer strong {
             color: var(--primary);
-            font-weight: 700;
         }
     </style>
 </head>
-<body>
+<body class="notranslate">
 
-<div class="container">
+<div class="container notranslate">
     <div class="header">
-        <span class="badge">✨ AI-POWERED SEO ENGINE</span>
+        <span class="badge">⚡ ULTRA-FAST SEO ENGINE</span>
         <h1>AI SEO Meta & Keywords Generator</h1>
         <p class="subtitle">Generate high-converting SEO titles, meta descriptions, and LSI keywords in seconds.</p>
     </div>
 
     <div class="api-box">
-        <label for="apiKey">🔑 Enter Your Free Google Gemini API Key:</label>
+        <label for="apiKey">🔑 Enter Your Google Gemini API Key:</label>
         <input type="password" id="apiKey" placeholder="AIzaSy...">
-        <small>Get a free API key from <b>Google AI Studio</b>. Your key stays strictly in your browser.</small>
+        <small>Get a free API key from <b>Google AI Studio</b>. Your key is stored securely in your browser session only.</small>
     </div>
 
     <div class="form-grid">
         <div>
             <label for="keyword">Target Keyword or Topic:</label>
-            <input type="text" id="keyword" placeholder="e.g., Micro-SaaS Ideas, AI Tools...">
+            <input type="text" id="keyword" placeholder="e.g., Bubble vs FlutterFlow, Micro-SaaS Ideas...">
         </div>
         <div>
             <label for="tone">Content Tone:</label>
             <select id="tone">
-                <option value="Professional & Informative">Professional</option>
-                <option value="Catchy & High-CTR">Catchy / Viral</option>
+                <option value="Catchy & High-CTR">Catchy & High-CTR</option>
+                <option value="Professional & Informative">Professional & Informative</option>
                 <option value="Educational & Step-by-Step">Educational</option>
                 <option value="Action-Oriented & Persuasive">Persuasive</option>
             </select>
@@ -250,7 +268,7 @@
 
     <button class="generate-btn" id="genBtn" onclick="generateAISEO()">Generate AI SEO Package 🚀</button>
 
-    <div class="loader" id="loader">⏳ AI is analyzing search intent and crafting your SEO tags...</div>
+    <div class="loader" id="loader">⚡ Generating instant results... <span id="timer">0</span>s</div>
 
     <div class="results" id="resultsArea">
         <div class="results-header">
@@ -264,7 +282,7 @@
         <div class="section-title">📝 Meta Descriptions (Target: &lt; 160 chars)</div>
         <div id="descriptionsList"></div>
 
-        <div class="section-title">🏷️ Suggested LSI Keywords & Hashtags (Click to copy)</div>
+        <div class="section-title">🏷️ Suggested LSI Keywords & Search Terms (Click to copy)</div>
         <div class="tags-container" id="tagsList"></div>
     </div>
 
@@ -275,6 +293,7 @@
 
 <script>
     let currentData = null;
+    let timerInterval = null;
 
     async function generateAISEO() {
         const apiKey = document.getElementById('apiKey').value.trim();
@@ -282,7 +301,7 @@
         const tone = document.getElementById('tone').value;
 
         if (!apiKey) {
-            alert("Please enter your free Gemini API Key first!");
+            alert("Please enter your Gemini API Key first!");
             return;
         }
         if (!keyword) {
@@ -293,117 +312,167 @@
         const btn = document.getElementById('genBtn');
         const loader = document.getElementById('loader');
         const resultsArea = document.getElementById('resultsArea');
+        const timerSpan = document.getElementById('timer');
 
         btn.disabled = true;
         loader.style.display = 'block';
         resultsArea.style.display = 'none';
 
-        const prompt = `Act as a world-class SEO specialist. For the topic/keyword: "${keyword}" with a "${tone}" tone, generate:
-1. Exactly 5 high-CTR SEO titles (strictly under 60 characters each).
-2. Exactly 3 compelling meta descriptions (strictly under 155 characters each).
-3. Exactly 8 relevant LSI keywords/hashtags.
+        let seconds = 0;
+        timerSpan.innerText = '0';
+        clearInterval(timerInterval);
+        timerInterval = setInterval(() => {
+            seconds++;
+            timerSpan.innerText = seconds;
+        }, 1000);
 
-Return ONLY a valid JSON object in this exact structure without markdown formatting or extra text:
+        const prompt = `Act as an expert SEO strategist.
+Generate high-CTR SEO assets for: "${keyword}" (Tone: ${tone}).
+
+Output pure JSON matching this exact structure:
 {
-  "titles": ["title 1", "title 2", "title 3", "title 4", "title 5"],
-  "descriptions": ["desc 1", "desc 2", "desc 3"],
-  "keywords": ["keyword1", "keyword2", "keyword3", "keyword4", "keyword5", "keyword6", "keyword7", "keyword8"]
+  "titles": ["5 SEO titles strictly under 60 chars"],
+  "descriptions": ["3 meta descriptions strictly under 155 chars"],
+  "keywords": ["8 relevant search keywords or LSI terms"]
 }`;
 
         try {
-            const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-3.8-flash:generateContent?key=${apiKey}`, {
+            // استخدام نموذج gemini-3.5-flash-lite السريع والمباشر
+            const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.5-flash-lite:generateContent?key=${apiKey}`;
+            const response = await fetch(endpoint, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
                     contents: [{ parts: [{ text: prompt }] }],
-                    generationConfig: { responseMimeType: "application/json" }
+                    generationConfig: {
+                        responseMimeType: "application/json"
+                    }
                 })
             });
 
-            const data = await response.json();
-
             if (!response.ok) {
-                const errMsg = data.error && data.error.message ? data.error.message : "Please check your API key.";
-                throw new Error(errMsg);
+                const errData = await response.json();
+                throw new Error(errData.error?.message || `HTTP Error: ${response.status}`);
             }
 
-            const rawText = data.candidates[0].content.parts[0].text;
-            const cleanJson = rawText.replace(/```json/g, '').replace(/```/g, '').trim();
-            currentData = JSON.parse(cleanJson);
+            const data = await response.json();
+            const textResponse = data.candidates?.[0]?.content?.parts?.[0]?.text;
 
-            renderCards(currentData.titles, 'titlesList', 60);
-            renderCards(currentData.descriptions, 'descriptionsList', 160);
-            renderTags(currentData.keywords);
+            if (!textResponse) {
+                throw new Error("No response received from Gemini.");
+            }
 
+            currentData = JSON.parse(textResponse);
+            renderResults(currentData);
             resultsArea.style.display = 'block';
+
         } catch (error) {
-            alert("API Error: " + error.message);
+            console.error("SEO Generation Error:", error);
+            alert("Error: " + error.message);
         } finally {
+            clearInterval(timerInterval);
             btn.disabled = false;
             loader.style.display = 'none';
         }
     }
 
-    function renderCards(items, containerId, maxLimit) {
-        const container = document.getElementById(containerId);
-        container.innerHTML = '';
-
-        items.forEach((text) => {
-            const len = text.length;
-            const statusClass = len <= maxLimit ? 'char-good' : 'char-warn';
-            const statusText = len <= maxLimit ? 'Optimal' : 'Over Limit';
-
-            const card = document.createElement('div');
-            card.className = 'result-card';
-            card.innerHTML = `
-                <div class="result-content">
-                    <div class="result-text">${text}</div>
-                    <div class="char-count">Length: <span class="${statusClass}">${len} / ${maxLimit} (${statusText})</span></div>
+    function renderResults(data) {
+        // 1. Titles
+        const titlesList = document.getElementById('titlesList');
+        titlesList.innerHTML = '';
+        (data.titles || []).forEach(title => {
+            const len = title.length;
+            const statusClass = len <= 60 ? 'char-good' : 'char-warn';
+            titlesList.innerHTML += `
+                <div class="result-card notranslate">
+                    <div class="result-content">
+                        <div class="result-text">${escapeHtml(title)}</div>
+                        <div class="char-count">Length: <span class="${statusClass}">${len}</span> / 60 characters</div>
+                    </div>
+                    <button class="copy-btn" onclick="copyText(this, '${escapeForAttribute(title)}')">📋 Copy</button>
                 </div>
-                <button class="copy-btn" onclick="copyText(this, '${text.replace(/'/g, "\\'")}')">Copy</button>
             `;
-            container.appendChild(card);
         });
-    }
 
-    function renderTags(tags) {
-        const container = document.getElementById('tagsList');
-        container.innerHTML = '';
-        tags.forEach(tag => {
-            const span = document.createElement('span');
-            span.className = 'tag-pill';
-            span.innerText = tag;
-            span.onclick = () => {
-                navigator.clipboard.writeText(tag);
-                span.innerText = 'Copied ✔';
-                setTimeout(() => span.innerText = tag, 1200);
-            };
-            container.appendChild(span);
+        // 2. Descriptions
+        const descriptionsList = document.getElementById('descriptionsList');
+        descriptionsList.innerHTML = '';
+        (data.descriptions || []).forEach(desc => {
+            const len = desc.length;
+            const statusClass = len <= 160 ? 'char-good' : 'char-warn';
+            descriptionsList.innerHTML += `
+                <div class="result-card notranslate">
+                    <div class="result-content">
+                        <div class="result-text">${escapeHtml(desc)}</div>
+                        <div class="char-count">Length: <span class="${statusClass}">${len}</span> / 160 characters</div>
+                    </div>
+                    <button class="copy-btn" onclick="copyText(this, '${escapeForAttribute(desc)}')">📋 Copy</button>
+                </div>
+            `;
+        });
+
+        // 3. Keywords
+        const tagsList = document.getElementById('tagsList');
+        tagsList.innerHTML = '';
+        (data.keywords || []).forEach(kw => {
+            tagsList.innerHTML += `
+                <span class="tag-pill notranslate" onclick="copyTag(this, '${escapeForAttribute(kw)}')">${escapeHtml(kw)} 📋</span>
+            `;
         });
     }
 
     function copyText(btn, text) {
         navigator.clipboard.writeText(text).then(() => {
             const orig = btn.innerText;
-            btn.innerText = 'Copied ✔';
+            btn.innerText = '✅ Copied!';
             setTimeout(() => { btn.innerText = orig; }, 1500);
+        });
+    }
+
+    function copyTag(element, text) {
+        navigator.clipboard.writeText(text).then(() => {
+            const originalText = element.innerText;
+            element.innerText = 'Copied! ✅';
+            setTimeout(() => { element.innerText = originalText; }, 1200);
         });
     }
 
     function exportToTXT() {
         if (!currentData) return;
-        const kw = document.getElementById('keyword').value;
-        let content = `SEO PACKAGE FOR: ${kw.toUpperCase()}\nDeveloped by Eng. Hanadi Abusabelah\n====================================\n\n`;
-        content += `--- SEO TITLES ---\n` + currentData.titles.map((t, i) => `${i+1}. ${t}`).join('\n') + `\n\n`;
-        content += `--- META DESCRIPTIONS ---\n` + currentData.descriptions.map((d, i) => `${i+1}. ${d}`).join('\n') + `\n\n`;
-        content += `--- LSI KEYWORDS ---\n` + currentData.keywords.join(', ');
+        const kw = document.getElementById('keyword').value || 'seo-package';
+        
+        let content = `=== AI SEO ASSETS FOR: ${kw.toUpperCase()} ===\n\n`;
 
-        const blob = new Blob([content], { type: 'text/plain' });
+        content += `--- [SEO TITLES] ---\n`;
+        (currentData.titles || []).forEach((t, i) => {
+            content += `${i + 1}. ${t} (${t.length} chars)\n`;
+        });
+
+        content += `\n--- [META DESCRIPTIONS] ---\n`;
+        (currentData.descriptions || []).forEach((d, i) => {
+            content += `${i + 1}. ${d} (${d.length} chars)\n`;
+        });
+
+        content += `\n--- [LSI KEYWORDS] ---\n`;
+        (currentData.keywords || []).forEach(k => {
+            content += `- ${k}\n`;
+        });
+
+        const blob = new Blob(['\uFEFF' + content], { type: 'text/plain;charset=utf-8' });
         const link = document.createElement('a');
         link.href = URL.createObjectURL(blob);
-        link.download = `SEO-Package-${kw.replace(/\s+/g, '-')}.txt`;
+        link.download = `SEO_${kw.replace(/[^a-zA-Z0-9]/g, '_')}.txt`;
         link.click();
     }
+
+    function escapeHtml(str) {
+        return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+    }
+
+    function escapeForAttribute(str) {
+        return str.replace(/'/g, "\\'").replace(/"/g, '&quot;');
+    }
 </script>
+
 </body>
 </html>
